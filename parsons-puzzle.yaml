@@ -1,0 +1,106 @@
+$schema: https://learning-contents.org/schemas/parsons-puzzles/0.1.0
+license: MIT
+locale: en-US
+id: pp_bank_account
+source: Program.cs
+title: Bank Transaction Logic
+description: Arrange the methods to correctly handle account transactions in C#.
+authors:
+  - first: Jone
+    last: Doe
+    email: jone.doe@example.com
+    affiliation: University of John Doe
+pedagogy:
+  activity: parsons-puzzles
+  difficulty: novice
+  prereq_topics: [classes, methods]
+  topics: [classes, methods, conditional logic]
+runtime:
+  language: csharp
+statement: |
+  Rearrange the blocks to correctly implement the deposit and withdrawal methods for the `BankAccount` class. Make sure to:
+  1. Handle inputs safely
+  2. Validate account balances
+executions:
+  - title: Standard Transaction
+    stdout: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    console: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+elements:
+  - type: block
+    location:
+      snippet: |2-
+            public int Deposit(int amount)
+            {
+                if (amount > 0)
+                {
+                    Balance += amount;
+                    Console.WriteLine($"Deposited {amount}");
+                }
+                return Balance;
+            }
+    choices:
+      - snippet: |-
+            public int Deposit(int amount)
+            {
+                if (amount > 0)
+                {
+                    Balance += amount;
+                    Console.WriteLine($"Deposited {amount}");
+                }
+                return Balance;
+            }
+        role: solution
+        explanations:
+          - body: |
+              Correctly adds the `amount` to `Balance` if it is positive (`amount > 0`).
+  - type: block
+    location:
+      snippet: |2-
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+    choices:
+      - snippet: |-
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+        role: solution
+        explanations:
+          - body: |
+              Correctly subtracts the `amount` if funds are sufficient (`amount <= Balance`).
+      - snippet: |-
+            public int Withdraw(int amount)
+            {
+                Balance -= amount;
+                return Balance;
+            }
+        role: distractor
+        explanations:
+          - body: |
+              This option is incorrect because it lacks the necessary funds check, which could lead to a **negative balance**! Always validate that `amount <= Balance`.

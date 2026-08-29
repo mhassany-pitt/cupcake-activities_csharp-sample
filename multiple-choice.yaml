@@ -1,0 +1,89 @@
+$schema: https://learning-contents.org/schemas/multiple-choice-question/0.1.0
+license: MIT
+locale: en-US
+id: mcq_bank_account_deposit
+title: C# Class Deposit Method
+description: Choose the correct implementation of the deposit method in C#.
+authors:
+  - first: Jone
+    last: Doe
+    email: jone.doe@example.com
+    affiliation: University of John Doe
+pedagogy:
+  activity: multiple-choice-question
+  difficulty: intermediate
+  prereq_topics:
+    - classes
+  topics:
+    - classes
+    - methods
+include_choices: 3
+question: |
+  Given the following C# class definition for `BankAccount`:
+  
+  ```csharp
+  public class BankAccount
+  {
+      public string Owner { get; set; }
+      public int Balance { get; set; }
+  
+      public BankAccount(string owner, int balance)
+      {
+          Owner = owner;
+          Balance = balance;
+      }
+  }
+  ```
+  
+  Which of the following represents the correct implementation for a `Deposit` member method in C# that adds a positive `amount` to the account balance and returns the new balance?
+choices:
+  - body: |
+      ```csharp
+      public int Deposit(int amount)
+      {
+          if (amount > 0)
+          {
+              Balance += amount;
+              return Balance;
+          }
+          throw new ArgumentException("Deposit amount must be positive");
+      }
+      ```
+    role: solution
+    include: always
+    order: 1
+    explanations:
+      - body: |
+          This is the correct implementation. It verifies that the deposit `amount` is positive (`amount > 0`), updates the property `Balance` using the `+=` operator, and returns the updated balance. It also correctly throws an `ArgumentException` for invalid amounts.
+  - body: |
+      ```csharp
+      public int Deposit(int amount)
+      {
+          if (amount > 0)
+          {
+              int Balance = Balance + amount;
+              return Balance;
+          }
+          return Balance;
+      }
+      ```
+    role: distractor
+    explanations:
+      - body: |
+          Incorrect. Declaring `int Balance = ...` inside the method creates a shadowed local variable instead of updating the property `Balance`.
+  - body: |
+      ```csharp
+      public int Deposit(int amount)
+      {
+          Balance =+ amount;
+          return Balance;
+      }
+      ```
+    role: distractor
+    explanations:
+      - body: |
+          Incorrect. The operator `=+` assigns positive `amount` (`Balance = +amount`), which overwrites the balance rather than adding to it. The correct operator is `+=`.
+  - body: None
+    role: distractor
+    include: always
+    order: 2
