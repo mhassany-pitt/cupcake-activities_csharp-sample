@@ -100,31 +100,6 @@ elements:
         explanations:
           - body: |
               Correct! Validates that `amount > 0` before updating `Balance`, writes confirmation to the console, and returns the updated balance.
-      - snippet: |-
-          public int Deposit(int amount)
-          {
-              Balance += amount;
-              Console.WriteLine($"Deposited {amount}");
-              return Balance;
-          }
-        role: distractor
-        explanations:
-          - body: |
-              Incorrect. Omits the `if (amount > 0)` input validation guard, allowing negative or zero deposit amounts to alter account funds.
-      - snippet: |-
-          public int Deposit(int amount)
-          {
-              if (amount > 0)
-              {
-                  Balance -= amount;
-                  Console.WriteLine($"Deposited {amount}");
-              }
-              return Balance;
-          }
-        role: distractor
-        explanations:
-          - body: |
-              Incorrect. Uses subtraction (`-=`) instead of addition (`+=`), deducting money from the account balance during a deposit transaction.
   - type: block
     group: bank-members
     location:
@@ -172,21 +147,3 @@ elements:
         explanations:
           - body: |
               Incorrect. Unconditionally deducts `amount` without verifying if `amount <= Balance`, allowing the account balance to plunge into negative numbers.
-      - snippet: |-
-          public int Withdraw(int amount)
-          {
-              if (0 < amount && amount > Balance)
-              {
-                  Balance -= amount;
-                  Console.WriteLine($"Withdrew {amount}");
-              }
-              else
-              {
-                  Console.WriteLine("Insufficient funds");
-              }
-              return Balance;
-          }
-        role: distractor
-        explanations:
-          - body: |
-              Incorrect. The comparison `amount > Balance` inverts the logic: it only allows withdrawals when the amount exceeds the balance, guaranteeing an overdraft on every successful withdrawal!
