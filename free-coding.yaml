@@ -92,12 +92,9 @@ elements:
                 Console.WriteLine($"Balance: {account.Balance}");
     placeholder: |-
       // 1. Create a BankAccount for "Bob" with 200 initial balance
-
-              // 2. Deposit 100
-
-              // 3. Withdraw 50
-
-              // 4. Output $"Balance: {account.Balance}"
+      // 2. Deposit 100
+      // 3. Withdraw 50
+      // 4. Output $"Balance: {account.Balance}"
 testcases:
   - title: Standard Account Workflow
     visible: true
