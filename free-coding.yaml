@@ -1,29 +1,27 @@
----
-"$schema": https://learning-contents.org/schemas/free-coding/0.1.0
+$schema: https://learning-contents.org/schemas/free-coding/0.1.0
 source: Program.cs
 license: MIT
 locale: en-US
 id: free_coding_bank_account
 title: Bank Account Management in C#
-description: Instantiate a BankAccount object, execute Deposit and Withdraw transactions,
-  and inspect the resulting balance.
+description: Instantiate a BankAccount object, execute Deposit and Withdraw transactions, and inspect the resulting balance.
 authors:
-- first: Jone
-  last: Doe
-  email: jone.doe@example.com
-  affiliation: University of John Doe
+  - first: Jone
+    last: Doe
+    email: jone.doe@example.com
+    affiliation: University of John Doe
 pedagogy:
   activity: free-coding
   difficulty: novice
   prereq_topics:
-  - basic-syntax
-  - classes
+    - basic-syntax
+    - classes
   topics:
-  - classes
-  - properties
-  - constructors
-  - methods
-  - state
+    - classes
+    - properties
+    - constructors
+    - methods
+    - state
 runtime:
   language: csharp
 statement: |
@@ -33,83 +31,83 @@ statement: |
   3. Call `Withdraw` with an amount of `50`.
   4. Print the final balance to the console using string interpolation: `Balance: {account.Balance}`.
 executions:
-- title: Standard Transaction Sequence
-  stdin: []
-  stdout: |-
-    Deposited 100
-    Withdrew 50
-    Balance: 250
-  console: |-
-    Deposited 100
-    Withdrew 50
-    Balance: 250
-  status: pass
+  - title: Standard Transaction Sequence
+    stdin: []
+    stdout: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    console: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    status: pass
 elements:
-- type: locked
-  location:
-    snippet: |-
-      using System;
+  - type: locked
+    location:
+      snippet: |-
+        using System;
 
-      public class BankAccount
-      {
-          public string Owner { get; set; }
-          public int Balance { get; set; }
+        public class BankAccount
+        {
+            public string Owner { get; set; }
+            public int Balance { get; set; }
 
-          public BankAccount(string owner, int balance)
-          {
-              Owner = owner;
-              Balance = balance;
-          }
+            public BankAccount(string owner, int balance)
+            {
+                Owner = owner;
+                Balance = balance;
+            }
 
-          public int Deposit(int amount)
-          {
-              if (amount > 0)
-              {
-                  Balance += amount;
-                  Console.WriteLine($"Deposited {amount}");
-              }
-              return Balance;
-          }
+            public int Deposit(int amount)
+            {
+                if (amount > 0)
+                {
+                    Balance += amount;
+                    Console.WriteLine($"Deposited {amount}");
+                }
+                return Balance;
+            }
 
-          public int Withdraw(int amount)
-          {
-              if (0 < amount && amount <= Balance)
-              {
-                  Balance -= amount;
-                  Console.WriteLine($"Withdrew {amount}");
-              }
-              else
-              {
-                  Console.WriteLine("Insufficient funds");
-              }
-              return Balance;
-          }
-      }
-- type: editable
-  location:
-    snippet: |2-
-              var account = new BankAccount("Bob", 200);
-              account.Deposit(100);
-              account.Withdraw(50);
-              Console.WriteLine($"Balance: {account.Balance}");
-  placeholder: |-
-    // 1. Create a BankAccount for "Bob" with 200 initial balance
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+        }
+  - type: editable
+    location:
+      snippet: |2-
+                var account = new BankAccount("Bob", 200);
+                account.Deposit(100);
+                account.Withdraw(50);
+                Console.WriteLine($"Balance: {account.Balance}");
+    placeholder: |-
+      // 1. Create a BankAccount for "Bob" with 200 initial balance
 
-            // 2. Deposit 100
+              // 2. Deposit 100
 
-            // 3. Withdraw 50
+              // 3. Withdraw 50
 
-            // 4. Output $"Balance: {account.Balance}"
+              // 4. Output $"Balance: {account.Balance}"
 testcases:
-- title: Standard Account Workflow
-  visible: true
-  stdin: []
-  stdout: |-
-    Deposited 100
-    Withdrew 50
-    Balance: 250
-  console: |-
-    Deposited 100
-    Withdrew 50
-    Balance: 250
-  status: pass
+  - title: Standard Account Workflow
+    visible: true
+    stdin: []
+    stdout: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    console: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    status: pass

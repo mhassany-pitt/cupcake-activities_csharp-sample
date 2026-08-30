@@ -1,30 +1,28 @@
----
-"$schema": https://learning-contents.org/schemas/worked-example/0.1.0
+$schema: https://learning-contents.org/schemas/worked-example/0.1.0
 source: Program.cs
 license: MIT
 locale: en-US
 id: we_bank_account
 title: Bank Account Management in C#
-description: Learn how to use C# classes, auto-implemented properties, methods, and
-  string interpolation to manage object state.
+description: Learn how to use C# classes, auto-implemented properties, methods, and string interpolation to manage object state.
 authors:
-- first: Jone
-  last: Doe
-  email: jone.doe@example.com
-  affiliation: University of John Doe
+  - first: Jone
+    last: Doe
+    email: jone.doe@example.com
+    affiliation: University of John Doe
 pedagogy:
   activity: worked-example
   difficulty: novice
   prereq_topics:
-  - basic-syntax
-  - variables
+    - basic-syntax
+    - variables
   topics:
-  - classes
-  - properties
-  - constructors
-  - methods
-  - state
-  - conditional-logic
+    - classes
+    - properties
+    - constructors
+    - methods
+    - state
+    - conditional-logic
 runtime:
   language: csharp
 statement: |
@@ -35,106 +33,106 @@ statement: |
   4. The `Withdraw` method with compound guard logic protecting against overdrafts.
   5. The `Main` driver method in the `Program` class demonstrating object instantiation, method calls, and string interpolation.
 executions:
-- title: Bob's Account
-  stdin: []
-  stdout: |-
-    Deposited 100
-    Withdrew 50
-    Balance: 250
-  console: |-
-    Deposited 100
-    Withdrew 50
-    Balance: 250
-  status: pass
+  - title: Bob's Account
+    stdin: []
+    stdout: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    console: |-
+      Deposited 100
+      Withdrew 50
+      Balance: 250
+    status: pass
 elements:
-- type: explanation
-  location:
-    snippet: |-
-      public class BankAccount
-      {
-          public string Owner { get; set; }
-          public int Balance { get; set; }
-  explanations:
-  - body: |
-      ### 1. Class Declaration and Auto-Implemented Properties
-      * `public class BankAccount`: Declares a public reference type in C#.
-      * `public string Owner { get; set; }` and `public int Balance { get; set; }`: C# **auto-implemented properties** encapsulate private backing fields automatically while exposing getter and setter accessors.
-      * In C#, public members and methods conventionally use **PascalCase**.
-- type: explanation
-  location:
-    snippet: |2-
+  - type: explanation
+    location:
+      snippet: |-
+        public class BankAccount
+        {
+            public string Owner { get; set; }
+            public int Balance { get; set; }
+    explanations:
+      - body: |
+          ### 1. Class Declaration and Auto-Implemented Properties
+          * `public class BankAccount`: Declares a public reference type in C#.
+          * `public string Owner { get; set; }` and `public int Balance { get; set; }`: C# **auto-implemented properties** encapsulate private backing fields automatically while exposing getter and setter accessors.
+          * In C#, public members and methods conventionally use **PascalCase**.
+  - type: explanation
+    location:
+      snippet: |2-
 
-          public BankAccount(string owner, int balance)
-          {
-              Owner = owner;
-              Balance = balance;
-          }
-  explanations:
-  - body: |
-      ### 2. Constructor Initialization
-      * `public BankAccount(string owner, int balance)`: Parameterized constructor invoked upon object instantiation.
-      * `Owner = owner;` and `Balance = balance;`: Assigns constructor arguments to the corresponding auto-implemented properties, initializing the instance state.
-- type: explanation
-  location:
-    snippet: |2-
+            public BankAccount(string owner, int balance)
+            {
+                Owner = owner;
+                Balance = balance;
+            }
+    explanations:
+      - body: |
+          ### 2. Constructor Initialization
+          * `public BankAccount(string owner, int balance)`: Parameterized constructor invoked upon object instantiation.
+          * `Owner = owner;` and `Balance = balance;`: Assigns constructor arguments to the corresponding auto-implemented properties, initializing the instance state.
+  - type: explanation
+    location:
+      snippet: |2-
 
-          public int Deposit(int amount)
-          {
-              if (amount > 0)
-              {
-                  Balance += amount;
-                  Console.WriteLine($"Deposited {amount}");
-              }
-              return Balance;
-          }
-  explanations:
-  - body: |
-      ### 3. The `Deposit` Method
-      * **Input Validation**: `if (amount > 0)` guards against non-positive deposit amounts.
-      * **State Mutation**: `Balance += amount;` adds `amount` directly to the `Balance` property.
-      * **String Interpolation**: `Console.WriteLine($"Deposited {amount}");` uses C# string interpolation (`$"..."`) to format and print the message.
-      * **Return Value**: `return Balance;` returns the updated balance.
-- type: explanation
-  location:
-    snippet: |2-
+            public int Deposit(int amount)
+            {
+                if (amount > 0)
+                {
+                    Balance += amount;
+                    Console.WriteLine($"Deposited {amount}");
+                }
+                return Balance;
+            }
+    explanations:
+      - body: |
+          ### 3. The `Deposit` Method
+          * **Input Validation**: `if (amount > 0)` guards against non-positive deposit amounts.
+          * **State Mutation**: `Balance += amount;` adds `amount` directly to the `Balance` property.
+          * **String Interpolation**: `Console.WriteLine($"Deposited {amount}");` uses C# string interpolation (`$"..."`) to format and print the message.
+          * **Return Value**: `return Balance;` returns the updated balance.
+  - type: explanation
+    location:
+      snippet: |2-
 
-          public int Withdraw(int amount)
-          {
-              if (0 < amount && amount <= Balance)
-              {
-                  Balance -= amount;
-                  Console.WriteLine($"Withdrew {amount}");
-              }
-              else
-              {
-                  Console.WriteLine("Insufficient funds");
-              }
-              return Balance;
-          }
-  explanations:
-  - body: |
-      ### 4. The `Withdraw` Method and Overdraft Protection
-      * **Compound Guard Condition**: `if (0 < amount && amount <= Balance)` checks two conditions with `&&`:
-        1. `0 < amount`: The withdrawal amount must be strictly positive.
-        2. `amount <= Balance`: The withdrawal must not exceed available funds (allowing withdrawals down to 0).
-      * **Successful Debit**: When valid, `Balance -= amount;` debits the balance and logs confirmation.
-      * **Fallback Branch**: The `else` block catches overdraft attempts or invalid amounts by writing `"Insufficient funds"` to the console without modifying `Balance`.
-      * **Return Value**: Returns the current balance in all cases.
-- type: explanation
-  location:
-    snippet: |2-
-          static void Main()
-          {
-              var account = new BankAccount("Bob", 200);
-              account.Deposit(100);
-              account.Withdraw(50);
-              Console.WriteLine($"Balance: {account.Balance}");
-          }
-  explanations:
-  - body: |
-      ### 5. Execution Flow in `Main`
-      * `static void Main()`: The standard entry point method for C# applications.
-      * `var account = new BankAccount("Bob", 200);`: Uses implicit typing (`var`) to instantiate a `BankAccount` object.
-      * `account.Deposit(100);`: Credits the account by 100 (balance becomes 300) and prints `"Deposited 100"`.
-      * `account.Withdraw(50);`: Debits the account by 50 (balance becomes 250) and prints `"Withdrew 50"`.
-      * `Console.WriteLine($"Balance: {account.Balance}");`: Reads property `account.Balance` and outputs `"Balance: 250"`.
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+    explanations:
+      - body: |
+          ### 4. The `Withdraw` Method and Overdraft Protection
+          * **Compound Guard Condition**: `if (0 < amount && amount <= Balance)` checks two conditions with `&&`:
+            1. `0 < amount`: The withdrawal amount must be strictly positive.
+            2. `amount <= Balance`: The withdrawal must not exceed available funds (allowing withdrawals down to 0).
+          * **Successful Debit**: When valid, `Balance -= amount;` debits the balance and logs confirmation.
+          * **Fallback Branch**: The `else` block catches overdraft attempts or invalid amounts by writing `"Insufficient funds"` to the console without modifying `Balance`.
+          * **Return Value**: Returns the current balance in all cases.
+  - type: explanation
+    location:
+      snippet: |2-
+            static void Main()
+            {
+                var account = new BankAccount("Bob", 200);
+                account.Deposit(100);
+                account.Withdraw(50);
+                Console.WriteLine($"Balance: {account.Balance}");
+            }
+    explanations:
+      - body: |
+          ### 5. Execution Flow in `Main`
+          * `static void Main()`: The standard entry point method for C# applications.
+          * `var account = new BankAccount("Bob", 200);`: Uses implicit typing (`var`) to instantiate a `BankAccount` object.
+          * `account.Deposit(100);`: Credits the account by 100 (balance becomes 300) and prints `"Deposited 100"`.
+          * `account.Withdraw(50);`: Debits the account by 50 (balance becomes 250) and prints `"Withdrew 50"`.
+          * `Console.WriteLine($"Balance: {account.Balance}");`: Reads property `account.Balance` and outputs `"Balance: 250"`.
