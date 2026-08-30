@@ -3,8 +3,8 @@ license: MIT
 locale: en-US
 id: pp_bank_account
 source: Program.cs
-title: Bank Transaction Logic
-description: Arrange the methods to correctly handle account transactions in C#.
+title: Bank Account Methods and Constructor in C#
+description: Rearrange the C# methods and constructor to properly manage BankAccount properties and enforce transaction safety.
 authors:
   - first: Jone
     last: Doe
@@ -13,14 +13,23 @@ authors:
 pedagogy:
   activity: parsons-puzzles
   difficulty: novice
-  prereq_topics: [classes, methods]
-  topics: [classes, methods, conditional logic]
+  prereq_topics:
+    - basic-syntax
+    - classes
+  topics:
+    - classes
+    - properties
+    - constructors
+    - methods
+    - conditional-logic
 runtime:
   language: csharp
 statement: |
-  Rearrange the blocks to correctly implement the deposit and withdrawal methods for the `BankAccount` class. Make sure to:
-  1. Handle inputs safely
-  2. Validate account balances
+  Rearrange the blocks to correctly implement the constructor and member methods for the `BankAccount` class in C#.
+  Make sure to:
+  1. Initialize the auto-properties (`Owner` and `Balance`).
+  2. Implement the `Deposit` method with positive input validation.
+  3. Implement the `Withdraw` method with strict overdraft protection and insufficient funds notification.
 executions:
   - title: Standard Transaction
     stdout: |-
@@ -31,76 +40,153 @@ executions:
       Deposited 100
       Withdrew 50
       Balance: 250
+    status: pass
 elements:
   - type: block
+    group: bank-members
     location:
-      snippet: |2-
-            public int Deposit(int amount)
+      snippet: |-
+            public BankAccount(string owner, int balance)
             {
-                if (amount > 0)
-                {
-                    Balance += amount;
-                    Console.WriteLine($"Deposited {amount}");
-                }
-                return Balance;
+                Owner = owner;
+                Balance = balance;
             }
     choices:
       - snippet: |-
-            public int Deposit(int amount)
+            public BankAccount(string owner, int balance)
             {
-                if (amount > 0)
-                {
-                    Balance += amount;
-                    Console.WriteLine($"Deposited {amount}");
-                }
-                return Balance;
+                Owner = owner;
+                Balance = balance;
             }
         role: solution
         explanations:
           - body: |
-              Correctly adds the `amount` to `Balance` if it is positive (`amount > 0`).
+              Correct! Sets the `Owner` and `Balance` properties using the constructor arguments.
+      - snippet: |-
+            public BankAccount(string owner, int balance)
+            {
+                owner = Owner;
+                balance = Balance;
+            }
+        role: distractor
+        explanations:
+          - body: |
+              Incorrect. Inverts the assignment (`owner = Owner`), assigning uninitialized default property values to the parameters and leaving `Owner` and `Balance` unchanged.
   - type: block
+    group: bank-members
     location:
-      snippet: |2-
-            public int Withdraw(int amount)
+      snippet: |-
+            public int Deposit(int amount)
             {
-                if (0 < amount && amount <= Balance)
+                if (amount > 0)
                 {
-                    Balance -= amount;
-                    Console.WriteLine($"Withdrew {amount}");
-                }
-                else
-                {
-                    Console.WriteLine("Insufficient funds");
+                    Balance += amount;
+                    Console.WriteLine($"Deposited {amount}");
                 }
                 return Balance;
             }
     choices:
       - snippet: |-
-            public int Withdraw(int amount)
+            public int Deposit(int amount)
             {
-                if (0 < amount && amount <= Balance)
+                if (amount > 0)
                 {
-                    Balance -= amount;
-                    Console.WriteLine($"Withdrew {amount}");
-                }
-                else
-                {
-                    Console.WriteLine("Insufficient funds");
+                    Balance += amount;
+                    Console.WriteLine($"Deposited {amount}");
                 }
                 return Balance;
             }
         role: solution
         explanations:
           - body: |
-              Correctly subtracts the `amount` if funds are sufficient (`amount <= Balance`).
+              Correct! Validates that `amount > 0` before updating `Balance`, writes confirmation to the console, and returns the updated balance.
       - snippet: |-
-            public int Withdraw(int amount)
+            public int Deposit(int amount)
             {
-                Balance -= amount;
+                Balance += amount;
+                Console.WriteLine($"Deposited {amount}");
                 return Balance;
             }
         role: distractor
         explanations:
           - body: |
-              This option is incorrect because it lacks the necessary funds check, which could lead to a **negative balance**! Always validate that `amount <= Balance`.
+              Incorrect. Omits the `if (amount > 0)` input validation guard, allowing negative or zero deposit amounts to alter account funds.
+      - snippet: |-
+            public int Deposit(int amount)
+            {
+                if (amount > 0)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Deposited {amount}");
+                }
+                return Balance;
+            }
+        role: distractor
+        explanations:
+          - body: |
+              Incorrect. Uses subtraction (`-=`) instead of addition (`+=`), deducting money from the account balance during a deposit transaction.
+  - type: block
+    group: bank-members
+    location:
+      snippet: |-
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+    choices:
+      - snippet: |-
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount <= Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+        role: solution
+        explanations:
+          - body: |
+              Correct! Verifies that `0 < amount && amount <= Balance`, debits the account when funds are sufficient, prints an error message when funds are insufficient, and returns `Balance`.
+      - snippet: |-
+            public int Withdraw(int amount)
+            {
+                Balance -= amount;
+                Console.WriteLine($"Withdrew {amount}");
+                return Balance;
+            }
+        role: distractor
+        explanations:
+          - body: |
+              Incorrect. Unconditionally deducts `amount` without verifying if `amount <= Balance`, allowing the account balance to plunge into negative numbers.
+      - snippet: |-
+            public int Withdraw(int amount)
+            {
+                if (0 < amount && amount > Balance)
+                {
+                    Balance -= amount;
+                    Console.WriteLine($"Withdrew {amount}");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds");
+                }
+                return Balance;
+            }
+        role: distractor
+        explanations:
+          - body: |
+              Incorrect. The comparison `amount > Balance` inverts the logic: it only allows withdrawals when the amount exceeds the balance, guaranteeing an overdraft on every successful withdrawal!

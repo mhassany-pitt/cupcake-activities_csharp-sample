@@ -3,8 +3,8 @@ source: Program.cs
 license: MIT
 locale: en-US
 id: free_coding_bank_account
-title: Bank Account Management
-description: Implement and test bank account methods in C#.
+title: Bank Account Management in C#
+description: Instantiate a BankAccount object, execute Deposit and Withdraw transactions, and inspect the resulting balance.
 authors:
   - first: Jone
     last: Doe
@@ -13,15 +13,25 @@ authors:
 pedagogy:
   activity: free-coding
   difficulty: novice
-  prereq_topics: [classes]
-  topics: [classes, methods, state]
+  prereq_topics:
+    - basic-syntax
+    - classes
+  topics:
+    - classes
+    - properties
+    - constructors
+    - methods
+    - state
 runtime:
   language: csharp
 statement: |
-  Implement a `transfer` sequence or method in `Main` to move money from one `BankAccount` to another.
-  Ensure that money is withdrawn from the current account only if funds are sufficient, and deposited into the target account.
+  In the `Main` method of `Program`, write the C# code to interact with the `BankAccount` class:
+  1. Instantiate a new `BankAccount` named `account` for owner `"Bob"` with an initial balance of `200`.
+  2. Call `Deposit` with an amount of `100`.
+  3. Call `Withdraw` with an amount of `50`.
+  4. Print the final balance to the console using string interpolation: `Balance: {account.Balance}`.
 executions:
-  - title: Transfer Alice to Bob
+  - title: Standard Transaction Sequence
     stdin: []
     stdout: |-
       Deposited 100
@@ -76,15 +86,20 @@ elements:
   - type: editable
     location:
       snippet: |-
-        var account = new BankAccount("Bob", 200);
+                var account = new BankAccount("Bob", 200);
                 account.Deposit(100);
                 account.Withdraw(50);
                 Console.WriteLine($"Balance: {account.Balance}");
     placeholder: |-
-      // Implement transfer sequence here
-              // Then test it with acc1 and acc2
+      // 1. Create a BankAccount for "Bob" with 200 initial balance
+
+              // 2. Deposit 100
+
+              // 3. Withdraw 50
+
+              // 4. Output $"Balance: {account.Balance}"
 testcases:
-  - title: Simple Transfer
+  - title: Standard Account Workflow
     visible: true
     stdin: []
     stdout: |-
@@ -95,3 +110,4 @@ testcases:
       Deposited 100
       Withdrew 50
       Balance: 250
+    status: pass

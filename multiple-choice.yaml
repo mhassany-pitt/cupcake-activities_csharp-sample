@@ -2,8 +2,8 @@ $schema: https://learning-contents.org/schemas/multiple-choice-question/0.1.0
 license: MIT
 locale: en-US
 id: mcq_bank_account_deposit
-title: C# Class Deposit Method
-description: Choose the correct implementation of the deposit method in C#.
+title: C# Class Deposit Method Implementation
+description: Choose the correct implementation of the Deposit method in a C# BankAccount class.
 authors:
   - first: Jone
     last: Doe
@@ -13,13 +13,18 @@ pedagogy:
   activity: multiple-choice-question
   difficulty: intermediate
   prereq_topics:
+    - basic-syntax
     - classes
+    - properties
   topics:
     - classes
+    - properties
     - methods
-include_choices: 3
+    - variable-scope
+    - state
+include_choices: 4
 question: |
-  Given the following C# class definition for `BankAccount`:
+  Given the following C# class definition:
   
   ```csharp
   public class BankAccount
@@ -35,7 +40,7 @@ question: |
   }
   ```
   
-  Which of the following represents the correct implementation for a `Deposit` member method in C# that adds a positive `amount` to the account balance and returns the new balance?
+  Which of the following represents the correct implementation for a `Deposit` member method in C# that validates positive deposit amounts, modifies the `Balance` property, and returns the new balance?
 choices:
   - body: |
       ```csharp
@@ -54,7 +59,11 @@ choices:
     order: 1
     explanations:
       - body: |
-          This is the correct implementation. It verifies that the deposit `amount` is positive (`amount > 0`), updates the property `Balance` using the `+=` operator, and returns the updated balance. It also correctly throws an `ArgumentException` for invalid amounts.
+          Correct! This implementation:
+          1. Validates that `amount > 0`.
+          2. Mutates property state using `Balance += amount`.
+          3. Returns the updated `int` balance.
+          4. Correctly throws an `ArgumentException` when invalid non-positive amounts are supplied.
   - body: |
       ```csharp
       public int Deposit(int amount)
@@ -70,20 +79,34 @@ choices:
     role: distractor
     explanations:
       - body: |
-          Incorrect. Declaring `int Balance = ...` inside the method creates a shadowed local variable instead of updating the property `Balance`.
+          Incorrect. Declaring `int Balance = ...` creates a local variable that shadows the `Balance` property, leaving the object property unmodified.
   - body: |
       ```csharp
       public int Deposit(int amount)
       {
-          Balance =+ amount;
+          if (amount > 0)
+          {
+              Balance =+ amount;
+              return Balance;
+          }
           return Balance;
       }
       ```
     role: distractor
     explanations:
       - body: |
-          Incorrect. The operator `=+` assigns positive `amount` (`Balance = +amount`), which overwrites the balance rather than adding to it. The correct operator is `+=`.
-  - body: None
+          Incorrect. The operator `=+` is a unary positive assignment (`Balance = +amount`), which overwrites the balance with `amount` rather than accumulating funds with `+=`.
+  - body: |
+      ```csharp
+      public int Deposit(int amount)
+      {
+          if (amount > 0)
+          {
+              Balance += amount;
+          }
+      }
+      ```
     role: distractor
-    include: always
-    order: 2
+    explanations:
+      - body: |
+          Incorrect. The method is declared with an `int` return type (`public int Deposit(...)`), but lacks a `return` statement, causing a C# compilation error: `not all code paths return a value`.
