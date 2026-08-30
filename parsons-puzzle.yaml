@@ -46,7 +46,6 @@ elements:
     group: bank-members
     location:
       snippet: |2-
-
             public BankAccount(string owner, int balance)
             {
                 Owner = owner;
@@ -54,7 +53,6 @@ elements:
             }
     choices:
       - snippet: |2-
-
               public BankAccount(string owner, int balance)
               {
                   Owner = owner;
@@ -78,7 +76,6 @@ elements:
     group: bank-members
     location:
       snippet: |2-
-
             public int Deposit(int amount)
             {
                 if (amount > 0)
@@ -90,7 +87,6 @@ elements:
             }
     choices:
       - snippet: |2-
-
               public int Deposit(int amount)
               {
                   if (amount > 0)
@@ -133,7 +129,6 @@ elements:
     group: bank-members
     location:
       snippet: |2-
-
             public int Withdraw(int amount)
             {
                 if (0 < amount && amount <= Balance)
@@ -149,7 +144,6 @@ elements:
             }
     choices:
       - snippet: |2-
-
               public int Withdraw(int amount)
               {
                   if (0 < amount && amount <= Balance)
