@@ -24,14 +24,17 @@ pedagogy:
     - conditional-logic
 runtime:
   language: csharp
+  version: 10
 statement: |
   Rearrange the blocks to correctly implement the constructor and member methods for the `BankAccount` class in C#.
   Make sure to:
   1. Initialize the auto-properties (`Owner` and `Balance`).
   2. Implement the `Deposit` method with positive input validation.
   3. Implement the `Withdraw` method with strict overdraft protection and insufficient funds notification.
-executions:
+testcases:
   - title: Standard Transaction
+    visible: true
+    stdin: []
     stdout: |-
       Deposited 100
       Withdrew 50
@@ -41,6 +44,16 @@ executions:
       Withdrew 50
       Balance: 250
     status: pass
+    hints:
+      - "Arrange the code blocks in logical sequential order from initialization to final output."
+      - "Ensure correct block indentation where applicable."
+    feedback:
+      - on_pass:
+          - explanations:
+              - "Correct! All blocks are sequenced properly to produce the expected output."
+        on_fail:
+          - explanations:
+              - "The block ordering or indentation is incorrect. Re-examine the flow of execution."
 elements:
   - type: block
     group: bank-members
@@ -59,6 +72,7 @@ elements:
                   Balance = balance;
               }
         role: solution
+        indent: 0
         explanations:
           - body: |
               Correct! Sets the `Owner` and `Balance` properties using the constructor arguments.
@@ -97,6 +111,7 @@ elements:
                   return Balance;
               }
         role: solution
+        indent: 0
         explanations:
           - body: |
               Correct! Validates that `amount > 0` before updating `Balance`, writes confirmation to the console, and returns the updated balance.
@@ -133,6 +148,7 @@ elements:
                   return Balance;
               }
         role: solution
+        indent: 0
         explanations:
           - body: |
               Correct! Verifies that `0 < amount && amount <= Balance`, debits the account when funds are sufficient, prints an error message when funds are insufficient, and returns `Balance`.
